@@ -1,0 +1,113 @@
+
+                {% extends "base.html" %}
+                {% load static %}
+                {% block content %}
+                <div class="pcoded-content">
+                    <!-- Page-header start -->
+                    <div class="page-header">
+                        <div class="page-block">
+                            <div class="row align-items-center">
+                                <div class="col-md-8">
+                                    <div class="page-header-title">
+                                        <h5 class="m-b-10">Client Management</h5>
+                                        <p class="m-b-0">Welcome to Aqua Solution</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <ul class="breadcrumb-title">
+                                        <li class="breadcrumb-item">
+                                            <a href="{% url 'home' %}"> <i class="fa fa-home"></i> </a>
+                                        </li>
+                                        <li class="breadcrumb-item"><a href="#!">Dashboard</a>
+                                        </li>
+                                        <li class="breadcrumb-item"><a href="#!">Client Management</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Page-header end -->
+                    <div class="pcoded-inner-content">
+                        <div class="main-body">
+                            <div class="page-wrapper">
+                                <div class="page-body">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="card">
+                                                <div class="card-header">
+                                                    <h5>Client Management</h5>
+                                                    <div class="btn-group dropdown-split-info" style="float:right">
+                                                        <a href="{% url 'add' %}" type="button" class="btn btn-info">Add</a>
+                                                    </div>
+                                                </div>
+                                                <div class="card-block">
+                                                    <div class="table-responsive">
+                                                        <table class="table table-hover">
+                                                            <thead>
+                                                            <tr>
+                                                                <th>#</th>
+                                                                <th>Name</th>
+                                                                <th>Phone</th>
+                                                                <th>Installation</th>
+                                                                <th>Next Service</th>
+                                                                <th>Maintenace Service</th>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                {% for i in list %}
+                                                                <tr>
+                                                                    <td>{{forloop.counter}}</td>
+                                                                    <td>{{i.name}}</td>
+                                                                    <td>{{i.phone}}</td>
+                                                                    <td>{{i.installation | date}}</td>
+                                                                    <td>{{i.service | date}}</td>
+                                                                    <td>{{i.maintenace | date}}</td>
+                                                                    <td>
+                                                                        <a href="{% url 'info' i.id %}" style="color:white" class="btn btn-out-dashed waves-effect waves-light btn-primary btn-square">Info</a>
+                                                                        <a href="{% url 'delete' i.id %}" style="color:white" class="btn btn-out-dashed waves-effect waves-light btn-danger btn-square">Delete</a>
+                                                                    </td>
+                                                                </tr>
+                                                                {% endfor %}
+                                                            </tbody>
+                                                        </table>
+                                                        {% if list.has_other_pages %}
+                                                        <ul class="pagination">
+                                                            {% if list.has_previous %}
+                                                            <li class="page-item"><a  class="page-link" href="?page={{ list.previous_page_number }}">&laquo;</a></li>
+                                                            {% else %}
+                                                            <li class="page-item disabled"><span class="page-link" >&laquo;</span></li>
+                                                            {% endif %}
+                                                            {% for i in list.paginator.page_range %}
+                                                            {% if list.number == i %}
+                                                                <li class="page-item active"><span class="page-link" >{{ i }} <span class="sr-only">(current)</span></span></li>
+                                                            {% else %}
+                                                                <li class="page-item"><a  class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                                                            {% endif %}
+                                                            {% endfor %}
+                                                            {% if list.has_next %}
+                                                            <li class="page-item"><a  class="page-link" href="?page={{ list.next_page_number }}">&raquo;</a></li>
+                                                            {% else %}
+                                                            <li class="page-item disabled"><span class="page-link" >&raquo;</span></li>
+                                                            {% endif %}
+                                                        </ul>
+                                                        {% endif %}
+ 
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="styleSelector">
+                
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

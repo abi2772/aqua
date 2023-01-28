@@ -1,0 +1,173 @@
+
+                {% extends "base.html" %}
+                {% load static %}
+                {% block content %}
+                {% load mathfilters %}
+
+                <div class="pcoded-content">
+                    <!-- Page-header start -->
+                    <div class="page-header">
+                        <div class="page-block">
+                            <div class="row align-items-center">
+                                <div class="col-md-8">
+                                    <div class="page-header-title">
+                                        <h5 class="m-b-10">Vendor Profile</h5>
+                                        {% comment %} <p class="m-b-0">Lorem Ipsum is simply dummy text of the printing</p> {% endcomment %}
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <ul class="breadcrumb-title">
+                                        <li class="breadcrumb-item">
+                                            <a href="{% url 'home' %}"> <i class="fa fa-home"></i> </a>
+                                        </li>
+                                        <li class="breadcrumb-item"><a href="#!">Dashboard</a>
+                                        </li>
+                                        <li class="breadcrumb-item"><a href="#!">Vendor Management</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Page-header end -->
+                    <div class="pcoded-inner-content">
+                        <div class="main-body">
+                            <div class="page-wrapper">
+                                <div class="page-body">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="card">
+                                                <div class="card-header">
+                                                    <h5>Vendor Profile</h5>
+                                                    <div class="btn-group dropdown-split-info" style="float:right">
+                                                        <button onclick="myFunction()" type="button" class="btn btn-info">Add</button>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-sm-12 col-xl-6">
+                                                                <h4 class="sub-title">Vendor Detail</h4>
+                                                                <dl class="dl-horizontal row">
+                                                                    <dt class="col-sm-3">Name</dt>
+                                                                    <dd class="col-sm-9">{{vendor.name}}</dd>
+                                                                    <dt class="col-sm-3">Mobile</dt>
+                                                                    <dd class="col-sm-9">{{vendor.phone}}</dd>
+                                                                    <dt class="col-sm-3">Address</dt>
+                                                                    <dd class="col-sm-9">{{vendor.address}}</dd>
+                                                                </dl>
+                                                        </div>
+                                                        <div class="col-sm-12 col-xl-6">
+                                                            <h4 class="sub-title">  </h4>
+                                                            <dl class="dl-horizontal row">
+                                                                <dt class="col-sm-3">Total Pay</dt>
+                                                                <dd class="col-sm-9">Rs. {{pay.pay__sum}}</dd>
+                                                                <dt class="col-sm-3">Balance</dt>
+                                                                <dd class="col-sm-9">Rs. {{balance.balance__sum}}</dd>
+                                                            </dl>
+                                                    </div>
+                                                    </div>
+                                                </div>
+                                                <div class="card-block">
+                                                    <div class="table-responsive">
+                                                        <table class="table table-hover">
+                                                            <thead>
+                                                            <tr>
+                                                                <th>#</th>
+                                                                <th>Item</th>
+                                                                <th>Description</th>
+                                                                <th>Quantity</th>
+                                                                <th>Price</th>
+                                                                <th>Pay</th>
+                                                                <th>Total</th>
+                                                                <th>Total Balance</th>
+                                                                <th>Date</th>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                {% for i in detail %}
+                                                                    <tr>
+                                                                        <td>{{i.id}}</td>
+                                                                        <td>{{i.item}}</td>
+                                                                        <td>{{i.desc}}</td>
+                                                                        <td>{{i.qty}}</td>
+                                                                        <td>Rs.{{i.price}}</td>
+                                                                        <td>Rs.{{i.pay}}</td>
+                                                                        <td>Rs.{{i.total_amount}}</td>
+                                                                        <td>Rs.{{i.balance}}</td>
+                                                                        <td>{{i.created_at}}</td>
+                                                                    </tr>
+                                                                {% endfor %}
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="styleSelector">
+                
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal start -->
+<div class="modal fade modal-icon" tabindex="-1" role="dialog" id="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Vendor Supply Detail</h4>
+            </div>
+            <form method="POST" action="{% url 'vendor-transaction' %}">
+                {% csrf_token %}
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group" hidden>
+                                <input class="form-control" type="text" name="supplier" value="{{vendor.id}}">
+                            </div>
+                            <div class="form-group">
+                                Item
+                                <input class="form-control" type="text" name="item" >
+                            </div>
+                            <div class="form-group">
+                                desc
+                                <textarea class="form-control" name="desc"></textarea>
+                            </div>
+                            <div class="form-group">
+                                Quantity
+                                <input class="form-control" type="number" name="qty" value="0">
+                            </div>
+                            <div class="form-group">
+                                Price
+                                <input class="form-control" type="number" name="price" value="0">
+                            </div>
+                            <div class="form-group">
+                                Pay
+                                <input class="form-control" type="number" name="pay" value="0">
+                            </div>
+                            <div class="form-group">
+                                Balance
+                                <input class="form-control" type="number" name="balance" value="0">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">submit</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+<script>
+    function myFunction() {
+        $('#myModalLabel').modal('show');
+    }
+</script>
+{% endblock content %}

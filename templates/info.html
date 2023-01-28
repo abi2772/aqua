@@ -1,0 +1,208 @@
+
+                {% extends "base.html" %}
+                {% load static %}
+                {% block content %}
+                
+                <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+                <script type="text/javascript">
+                    $("#btnPrint").live("click", function () {
+                        var divContents = $("#dvContainer").html();
+                        var myselfContents = $("#myself").html();
+                        var printWindow = window.open('', '', 'height=400,width=800');
+                        printWindow.document.write('<html><head><title>Customer Invoice</title>');
+                        printWindow.document.write('</head><body >');
+                        printWindow.document.write('<dl class="dl-horizontal row" style="width: 100%;"><dt class="col-sm-3">Name: &nbsp; {{customer.name}}</dt></dl>');
+                        printWindow.document.write('<dl class="dl-horizontal row" style="width: 100%;"><dt class="col-sm-3">Mobile: &nbsp; {{customer.phone}}</dt></dl>');
+                        printWindow.document.write('<dl class="dl-horizontal row" style="width: 100%;"><dt class="col-sm-3">Address: &nbsp; {{customer.address}}</dt></dl>');
+                        printWindow.document.write('<table class="table table-hover" style="border: 1px solid;width: 100%;"><thead><tr><th style="border: 1px solid;">#</th><th style="border: 1px solid;">Debit</th><th style="border: 1px solid;">Credit</th><th style="border: 1px solid;">Service</th><th style="border: 1px solid;">Payment</th></tr></thead>');
+                        printWindow.document.write('<tbody>{% for i in detail %}<tr><td style="border: 1px solid;">{{i.id}}</td><td style="border: 1px solid;">Rs.{{i.debit}}</td><td style="border: 1px solid;">Rs.{{i.credit}}</td><td style="border: 1px solid;">{{i.service_type}}</td><td style="border: 1px solid;">{{i.payment_type}}</td></tr>{% endfor %}</tbody></table>');
+                        printWindow.document.write('</body></html>');
+                        printWindow.document.close();
+                        printWindow.print();
+                    });
+                </script>
+                <div class="pcoded-content">
+                    <!-- Page-header start -->
+                    <div class="page-header">
+                        <div class="page-block">
+                            <div class="row align-items-center">
+                                <div class="col-md-8">
+                                    <div class="page-header-title">
+                                        <h5 class="m-b-10">Client Profile</h5>
+                                        {% comment %} <p class="m-b-0">Lorem Ipsum is simply dummy text of the printing</p> {% endcomment %}
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <ul class="breadcrumb-title">
+                                        <li class="breadcrumb-item">
+                                            <a href="{% url 'home' %}"> <i class="fa fa-home"></i> </a>
+                                        </li>
+                                        <li class="breadcrumb-item"><a href="#!">Dashboard</a>
+                                        </li>
+                                        <li class="breadcrumb-item"><a href="#!">Client Management</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Page-header end -->
+                    <div class="pcoded-inner-content">
+                        <div class="main-body">
+                            <div class="page-wrapper">
+                                <div class="page-body">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="card">
+                                                <div class="card-header">
+                                                    <h5>Client Profile</h5>
+                                                    <div class="btn-group dropdown-split-info" style="float:right">
+                                                        <input class="btn btn-primary" type="button" value="Print" id="btnPrint" />
+                                                        <button onclick="myFunction()" type="button" class="btn btn-info">Add</button>
+                                                    </div>
+                                                    <div class="row" >
+                                                        <div class="col-sm-12 col-xl-6" id="myself">
+                                                                <h4 class="sub-title">Customer Detail</h4>
+                                                                <dl class="dl-horizontal row">
+                                                                    <dt class="col-sm-3">Name</dt>
+                                                                    <dd class="col-sm-9">{{customer.name}}</dd>
+                                                                    <dt class="col-sm-3">Mobile</dt>
+                                                                    <dd class="col-sm-9">{{customer.phone}}</dd>
+                                                                    <dt class="col-sm-3">Address</dt>
+                                                                    <dd class="col-sm-9">{{customer.address}}</dd>
+                                                                </dl>
+                                                        </div>
+                                                        <div class="col-sm-12 col-xl-6">
+                                                            <h4 class="sub-title">Installation Detail</h4>
+                                                            <dl class="dl-horizontal row">
+                                                                <dt class="col-sm-3">Equipement</dt>
+                                                                <dd class="col-sm-9">{{customer.equipement}}</dd>
+                                                                <dt class="col-sm-3">Installation</dt>
+                                                                <dd class="col-sm-9">{{customer.installation | date}}</dd>
+                                                                <dt class="col-sm-3">Service</dt>
+                                                                <dd class="col-sm-9">{{customer.service | date}}</dd>
+                                                                <dt class="col-sm-3">Maintenace</dt>
+                                                                <dd class="col-sm-9">{{customer.maintenace | date}}</dd>
+                                                                <dt class="col-sm-3">Staff</dt>
+                                                                <dd class="col-sm-9">{{customer.staff}}</dd>
+                                                            </dl>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="card-block">
+                                                    <div class="table-responsive">
+                                                        <table class="table table-hover">
+                                                            <thead>
+                                                            <tr>
+                                                                <th>#</th>
+                                                                <th>Debit</th>
+                                                                <th>Credit</th>
+                                                                <th>Service</th>
+                                                                <th>Payment</th>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                {% for i in detail %}
+                                                                    <tr>
+                                                                        <td>{{i.id}}</td>
+                                                                        <td>Rs.{{i.debit}}</td>
+                                                                        <td>Rs.{{i.credit}}</td>
+                                                                        <td>{{i.service_type}}</td>
+                                                                        <td>
+                                                                            {% if i.payment_type == "Not Paid" %}
+                                                                            <a href="/paid_by_client/?id={{i.id}}&trn={{i.customer.id}}">
+                                                                                <div class="label-main">
+                                                                                    <label class="label label-lg label-danger">Pay Now</label>
+                                                                                </div>
+                                                                            </a>
+                                                                            {% else %}
+                                                                            <div class="label-main">
+                                                                                <label class="label label-lg label-success">Paid</label>
+                                                                            </div>
+                                                                            {% endif %}
+                                                                        </td>
+                                                                    </tr>
+                                                                {% endfor %}
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="styleSelector">
+                
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal start -->
+<div class="modal fade modal-icon" tabindex="-1" role="dialog" id="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Customer Service Detail</h4>
+            </div>
+            <form method="POST" action="{% url 'transaction' %}">
+                {% csrf_token %}
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group" hidden>
+                                <input class="form-control" type="text" name="customer" value="{{customer.id}}">
+                            </div>
+                            <div class="form-group">
+                                Debit
+                                <input class="form-control" type="number" name="debit" value="0">
+                            </div>
+                            <div class="form-group">
+                                Credit
+                                <input class="form-control" type="number" name="credit" value="0">
+                            </div>
+                            <div class="form-group">
+                                Service
+                                <select class="form-control" name="service">
+                                    <option value="Installation">Installation</option>
+                                    <option value="Service">Service</option>
+                                    <option value="Maintance">Maintance</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                Payment
+                                <select class="form-control" name="payment">
+                                    <option value="Paid">Paid</option>
+                                    <option value="Not Paid">Not Paid</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                Next Service
+                                <input class="form-control" type="date" name="service_date" required>
+                            </div>
+                            <div class="form-group">
+                                Next Maintance
+                                <input class="form-control" type="date" name="maintance" required>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">submit</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+<script>
+    function myFunction() {
+        $('#myModalLabel').modal('show');
+    }
+</script>
+{% endblock content %}

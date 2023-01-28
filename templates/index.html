@@ -1,0 +1,380 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+{% load mathfilters %}
+
+                  <div class="pcoded-content">
+                      <!-- Page-header start -->
+                      <div class="page-header">
+                          <div class="page-block">
+                              <div class="row align-items-center">
+                                  <div class="col-md-8">
+                                      <div class="page-header-title">
+                                          <h5 class="m-b-10">Dashboard</h5>
+                                          <p class="m-b-0">Welcome to Aqua Solution</p>
+                                            <div class="main-search morphsearch-search align-items-center">
+                                                <form method="POST" action="{% url 'search' %}">
+                                                    {% csrf_token %}
+                                                    <div class="input-group">
+                                                        <input id="tags" type="text" class="form-control" name="name" required>
+                                                        <button class="input-group-addon search-btn"><i class="ti-search"></i></button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                      </div>
+                                  </div>
+                                  <div class="col-md-4">
+                                      <ul class="breadcrumb-title">
+                                          <li class="breadcrumb-item">
+                                              <a href="{% url 'home' %}"> <i class="fa fa-home"></i> </a>
+                                          </li>
+                                          <li class="breadcrumb-item"><a href="#!">Dashboard</a>
+                                          </li>
+                                      </ul>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                      <!-- Page-header end -->
+                        <div class="pcoded-inner-content">
+                            <!-- Main-body start -->
+                            <div class="main-body">
+                                <div class="page-wrapper">
+                                    <!-- Page-body start -->
+                                    <div class="page-body">
+                                        <div class="row">
+                                            <!-- task, page, download counter  start -->
+                                            <div class="col-xl-3 col-md-6">
+                                                <div class="card">
+                                                    <div class="card-block">
+                                                        <div class="row align-items-center">
+                                                            <div class="col-6">
+                                                                <p class="text-c-purple text-success">Recived: Rs.{{amount_credit_this_month.credit__sum}}</p>
+                                                                <p class="text-c-purple text-danger">Pending: Rs.{{amount_pending_this_month.credit__sum}}</p>
+                                                                <p class="text-c-purple">Expense: Rs.{{amount_expense_this_month.amount__sum}}</p>
+                                                                <h6 class="text-muted m-b-0" hidden>All Earnings</h6>
+                                                            </div>
+                                                            <div class="col-6">
+                                                                <h3>Rs. {{ amount_credit_this_month.credit__sum|sub:amount_expense_this_month.amount__sum }}</h3>
+                                                                
+                                                                    {% if  amount_credit_this_month.credit__sum|sub:amount_expense_this_month.amount__sum  < 0 %}
+                                                                    <h3 class="text-danger  highlight">In-Loss</h3>
+                                                                    {% else %}
+                                                                    <h3 class="text-success">In-Profit</h3>
+                                                                    {% endif %}
+                                                                
+                                                            </div>
+                                                            {% comment %} <div class="col-4 text-right">
+                                                                <i class="fa fa-bar-chart f-28"></i>
+                                                            </div> {% endcomment %}
+                                                        </div>
+                                                    </div>
+                                                    <div class="card-footer bg-c-purple">
+                                                        <div class="row align-items-center">
+                                                            <div class="col-9">
+                                                                <p class="text-white m-b-0">This Month Sale</p>
+                                                            </div>
+                                                            <div class="col-3 text-right">
+                                                                <i class="fa fa-line-chart text-white f-16"></i>
+                                                            </div>
+                                                        </div>
+            
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-3 col-md-6">
+                                                <div class="card">
+                                                    <div class="card-block">
+                                                        <div class="row align-items-center">
+                                                            <div class="col-8">
+                                                                <h4 class="text-c-green">{{new_client_this_month}}</h4>
+                                                                <h6 class="text-muted m-b-0" hidden>Page Views</h6>
+                                                            </div>
+                                                            <div class="col-4 text-right">
+                                                                <i class="fa fa-file-text-o f-28"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="card-footer bg-c-green">
+                                                        <div class="row align-items-center">
+                                                            <div class="col-9">
+                                                                <p class="text-white m-b-0">This Month New Client</p>
+                                                            </div>
+                                                            <div class="col-3 text-right">
+                                                                <i class="fa fa-line-chart text-white f-16"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-3 col-md-6">
+                                                <div class="card">
+                                                    <div class="card-block">
+                                                        <div class="row align-items-center">
+                                                            <div class="col-8">
+                                                                <h4 class="text-c-red">{{total_service_this_month}}</h4>
+                                                                <h6 class="text-muted m-b-0" hidden>Task Completed</h6>
+                                                            </div>
+                                                            <div class="col-4 text-right">
+                                                                <i class="fa fa-calendar-check-o f-28"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="card-footer bg-c-red">
+                                                        <div class="row align-items-center">
+                                                            <div class="col-9">
+                                                                <p class="text-white m-b-0">Service Pending This Month</p>
+                                                            </div>
+                                                            <div class="col-3 text-right">
+                                                                <i class="fa fa-line-chart text-white f-16"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-3 col-md-6">
+                                                <div class="card">
+                                                    <div class="card-block">
+                                                        <div class="row align-items-center">
+                                                            <div class="col-8">
+                                                                <h4 class="text-c-blue">{{total_maintance_this_month}}</h4>
+                                                                <h6 class="text-muted m-b-0" hidden>Downloads</h6>
+                                                            </div>
+                                                            <div class="col-4 text-right">
+                                                                <i class="fa fa-hand-o-down f-28"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="card-footer bg-c-blue">
+                                                        <div class="row align-items-center">
+                                                            <div class="col-9">
+                                                                <p class="text-white m-b-0">Maintance Pending This Month</p>
+                                                            </div>
+                                                            <div class="col-3 text-right">
+                                                                <i class="fa fa-line-chart text-white f-16"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- task, page, download counter  end -->
+    
+                                            <!--  sale analytics start -->
+                                            
+                                            <div class="col-xl-4 col-md-12">
+                                                <div class="card table-card">
+                                                    <div class="card-header">
+                                                        <h5>Expense</h5>
+                                                        <div class="card-header-right">
+                                                            <ul class="list-unstyled card-option">
+                                                                <li><i class="fa fa fa-wrench open-card-option"></i></li>
+                                                                <li><i class="fa fa-window-maximize full-card"></i></li>
+                                                                <li><i class="fa fa-minus minimize-card"></i></li>
+                                                                <li><i class="fa fa-refresh reload-card"></i></li>
+                                                                <li><i class="fa fa-trash close-card"></i></li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="card-block">
+                                                        <div class="table-responsive">
+                                                            <div class="col-lg-12 col-xl-12">
+                                                                <table class="table table-hover">
+                                                                    <thead>
+                                                                    <tr>
+                                                                        <th>#</th>
+                                                                        <th>Detail</th>
+                                                                        <th>Amount</th>
+                                                                    </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        {% for i in expense_list %}
+                                                                        <tr>
+                                                                            <td>{{forloop.counter}}</td>
+                                                                            <td>{{i.detail}}</td>
+                                                                            <td>{{i.amount}}</td>
+                                                                        </tr>
+                                                                        {% endfor %}
+                                                                    </tbody>
+                                                                </table>
+                                                                <div class="text-right m-r-20">
+                                                                    <a href="{% url 'expense' %}" class=" b-b-primary text-primary">View all Expense</a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!--  sale analytics end -->
+    
+                                            <!--  project and team member start -->
+                                            <div class="col-xl-8 col-md-12">
+                                                <div class="card table-card">
+                                                    <div class="card-header">
+                                                        <h5>Service Reminder</h5>
+                                                        <div class="card-header-right">
+                                                            <ul class="list-unstyled card-option">
+                                                                <li><i class="fa fa fa-wrench open-card-option"></i></li>
+                                                                <li><i class="fa fa-window-maximize full-card"></i></li>
+                                                                <li><i class="fa fa-minus minimize-card"></i></li>
+                                                                <li><i class="fa fa-refresh reload-card"></i></li>
+                                                                <li><i class="fa fa-trash close-card"></i></li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="card-block">
+                                                        <div class="table-responsive">
+                                                            <div class="col-lg-12 col-xl-12">
+                                                                <!-- Nav tabs -->
+                                                                <ul class="nav nav-tabs md-tabs" role="tablist">
+                                                                    <li class="nav-item">
+                                                                        <a class="nav-link active" data-toggle="tab" href="#home3" role="tab">Today</a>
+                                                                        <div class="slide"></div>
+                                                                    </li>
+                                                                    <li class="nav-item">
+                                                                        <a class="nav-link" data-toggle="tab" href="#profile3" role="tab">Upcomming</a>
+                                                                        <div class="slide"></div>
+                                                                    </li>
+                                                                </ul>
+                                                                <!-- Tab panes -->
+                                                                <div class="tab-content card-block">
+                                                                    <div class="tab-pane active" id="home3" role="tabpanel">
+                                                                        <table class="table table-hover">
+                                                                            <thead>
+                                                                            <tr>
+                                                                                <th>#</th>
+                                                                                <th>Name</th>
+                                                                                <th>Phone</th>
+                                                                                <th>Address</th>
+                                                                                <th class="text-right">Detail</th>
+                                                                            </tr>
+                                                                            </thead>
+                                                                            <tbody>
+                                                                                {% for i in service_today %}
+                                                                                <tr>
+                                                                                    <td>{{forloop.counter}}</td>
+                                                                                    <td>{{i.name}}</td>
+                                                                                    <td>{{i.phone}}</td>
+                                                                                    <td>{{i.address}}</td>
+                                                                                    <td class="text-right">
+                                                                                        <a href="{% url 'info' i.id %}" style="color:white" class="btn btn-out-dashed waves-effect waves-light btn-primary btn-square">Info</a>
+                                                                                    </td>
+                                                                                </tr>
+                                                                                {% endfor %}
+                                                                            </tbody>
+                                                                        </table>
+                                                                        <div class="text-right m-r-20">
+                                                                            <a href="{% url 'reminder' %}" class=" b-b-primary text-primary">View all Reminders</a>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="tab-pane" id="profile3" role="tabpanel">
+                                                                        <table class="table table-hover">
+                                                                            <thead>
+                                                                            <tr>
+                                                                                <th>#</th>
+                                                                                <th>Name</th>
+                                                                                <th>Phone</th>
+                                                                                <th>Address</th>
+                                                                                <th class="text-right">Detail</th>
+                                                                            </tr>
+                                                                            </thead>
+                                                                            <tbody>
+                                                                            <tr>
+                                                                                {% for i in service_coming %}
+                                                                                <tr>
+                                                                                    <td>{{forloop.counter}}</td>
+                                                                                    <td>{{i.name}}</td>
+                                                                                    <td>{{i.phone}}</td>
+                                                                                    <td>{{i.address}}</td>
+                                                                                    <td class="text-right">
+                                                                                        <a href="{% url 'info' i.id %}" style="color:white" class="btn btn-out-dashed waves-effect waves-light btn-primary btn-square">Info</a>
+                                                                                    </td>
+                                                                                </tr>
+                                                                                {% endfor %}
+                                                                            </tr>
+                                                                            </tbody>
+                                                                        </table>
+                                                                        <div class="text-right m-r-20">
+                                                                            <a href="#!" class=" b-b-primary text-primary">View all Projects</a>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                            <!--  project and team member end -->
+                                        </div>
+                                    </div>
+                                    <!-- Page-body end -->
+                                </div>
+                                <div id="styleSelector"> </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        $( function() {
+          var availableTags = [
+              {% for i in search %}
+                "{{i.id}}-{{i.name}}",
+              {% endfor %}
+          ];
+          $( "#tags" ).autocomplete({
+            source: availableTags
+          });
+        } );
+        </script>
+    <!-- Warning Section Starts -->
+    <!-- Older IE warning message -->
+    <!--[if lt IE 10]>
+    <div class="ie-warning">
+        <h1>Warning!!</h1>
+        <p>You are using an outdated version of Internet Explorer, please upgrade <br/>to any of the following web browsers to access this website.</p>
+        <div class="iew-container">
+            <ul class="iew-download">
+                <li>
+                    <a href="http://www.google.com/chrome/">
+                        <img src="assets/images/browser/chrome.png" alt="Chrome">
+                        <div>Chrome</div>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://www.mozilla.org/en-US/firefox/new/">
+                        <img src="assets/images/browser/firefox.png" alt="Firefox">
+                        <div>Firefox</div>
+                    </a>
+                </li>
+                <li>
+                    <a href="http://www.opera.com">
+                        <img src="assets/images/browser/opera.png" alt="Opera">
+                        <div>Opera</div>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://www.apple.com/safari/">
+                        <img src="assets/images/browser/safari.png" alt="Safari">
+                        <div>Safari</div>
+                    </a>
+                </li>
+                <li>
+                    <a href="http://windows.microsoft.com/en-us/internet-explorer/download-ie">
+                        <img src="assets/images/browser/ie.png" alt="">
+                        <div>IE (9 & above)</div>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <p>Sorry for the inconvenience!</p>
+    </div>
+    <![endif]-->
+    <!-- Warning Section Ends -->
+    
+
+    {% endblock content %}

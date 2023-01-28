@@ -1,0 +1,132 @@
+
+                {% extends "base.html" %}
+                {% load static %}
+                {% block content %}
+                <div class="pcoded-content">
+                    <!-- Page-header start -->
+                    <div class="page-header">
+                        <div class="page-block">
+                            <div class="row align-items-center">
+                                <div class="col-md-8">
+                                    <div class="page-header-title">
+                                        <h5 class="m-b-10">Reminder Management</h5>
+                                        {% comment %} <p class="m-b-0">Lorem Ipsum is simply dummy text of the printing</p> {% endcomment %}
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <ul class="breadcrumb-title">
+                                        <li class="breadcrumb-item">
+                                            <a href="{% url 'home' %}"> <i class="fa fa-home"></i> </a>
+                                        </li>
+                                        <li class="breadcrumb-item"><a href="#!">Dashboard</a>
+                                        </li>
+                                        <li class="breadcrumb-item"><a href="#!">Reminder Management</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Page-header end -->
+                    <div class="pcoded-inner-content">
+                        <div class="main-body">
+                            <div class="page-wrapper">
+                                <div class="page-body">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="card">
+                                                <div class="card-header">
+                                                    <h5>Reminder Management</h5>
+                                                </div>
+                                                <div class="card-block">
+                                                    <div class="table-responsive">
+                                                        <div class="col-lg-12 col-xl-12">
+                                                            <!-- Nav tabs -->
+                                                            <ul class="nav nav-tabs md-tabs" role="tablist">
+                                                                <li class="nav-item">
+                                                                    <a class="nav-link active" data-toggle="tab" href="#service" role="tab">Service</a>
+                                                                    <div class="slide"></div>
+                                                                </li>
+                                                                <li class="nav-item">
+                                                                    <a class="nav-link" data-toggle="tab" href="#maintance" role="tab">Maintance</a>
+                                                                    <div class="slide"></div>
+                                                                </li>
+                                                            </ul>
+                                                            <!-- Tab panes -->
+                                                            <div class="tab-content card-block">
+                                                                <div class="tab-pane active" id="service" role="tabpanel">
+                                                                    <table class="table table-hover">
+                                                                        <thead>
+                                                                        <tr>
+                                                                            <th>#</th>
+                                                                            <th>Name</th>
+                                                                            <th>Phone</th>
+                                                                            <th>Service</th>
+                                                                            <th class="text-right">Detail</th>
+                                                                        </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                        <tr>
+                                                                            {% for i in service %}
+                                                                            <tr>
+                                                                                <td>{{forloop.counter}}</td>
+                                                                                <td>{{i.name}}</td>
+                                                                                <td>{{i.phone}}</td>
+                                                                                <td>{{i.service | date}}</td>
+                                                                                <td class="text-right">
+                                                                                    <a href="{% url 'info' i.id %}" style="color:white" class="btn btn-out-dashed waves-effect waves-light btn-primary btn-square">Info</a>
+                                                                                </td>
+                                                                            </tr>
+                                                                            {% endfor %}
+                                                                        </tr>
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+                                                                <div class="tab-pane" id="maintance" role="tabpanel">
+                                                                    <table class="table table-hover">
+                                                                        <thead>
+                                                                        <tr>
+                                                                            <th>#</th>
+                                                                            <th>Name</th>
+                                                                            <th>Phone</th>
+                                                                            <th>Maintance</th>
+                                                                            <th class="text-right">Detail</th>
+                                                                        </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                        <tr>
+                                                                            {% for i in maintance %}
+                                                                            <tr>
+                                                                                <td>{{forloop.counter}}</td>
+                                                                                <td>{{i.name}}</td>
+                                                                                <td>{{i.phone}}</td>
+                                                                                <td>{{i.maintenace | date}}</td>
+                                                                                <td class="text-right">
+                                                                                    <a href="{% url 'info' i.id %}" style="color:white" class="btn btn-out-dashed waves-effect waves-light btn-primary btn-square">Info</a>
+                                                                                </td>
+                                                                            </tr>
+                                                                            {% endfor %}
+                                                                        </tr>
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="styleSelector">
+                
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

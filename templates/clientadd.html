@@ -1,0 +1,96 @@
+
+                {% extends "base.html" %}
+                {% load static %}
+                {% block content %}
+                <div class="pcoded-content">
+                    <!-- Page-header start -->
+                    <div class="page-header">
+                        <div class="page-block">
+                            <div class="row align-items-center">
+                                <div class="col-md-8">
+                                    <div class="page-header-title">
+                                        <h5 class="m-b-10">Client Management</h5>
+                                        <p class="m-b-0">.</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <ul class="breadcrumb-title">
+                                        <li class="breadcrumb-item">
+                                            <a href="{% url 'home' %}"> <i class="fa fa-home"></i> </a>
+                                        </li>
+                                        <li class="breadcrumb-item"><a href="{% url 'home' %}">Dashboard</a>
+                                        </li>
+                                        <li class="breadcrumb-item"><a href="#!">New Client</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Page-header end -->
+                    <div class="pcoded-inner-content">
+                        <div class="main-body">
+                            <div class="page-wrapper">
+                                <div class="page-body">
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div class="card">
+                                                <div class="card-header">
+                                                    <h5>Client Management</h5>
+                                                </div>
+                                                <div class="card-block">
+                                                    <div class="table-responsive">
+                                                        <form class="form-material" method="POST" action="{% url 'add' %}" enctype="multipart/form-data">
+                                                            {% csrf_token %}
+                                                            <div class="form-group form-default">
+                                                                <input type="text" name="name" class="form-control" required="">
+                                                                <span class="form-bar"></span>
+                                                                <label class="float-label">Name</label>
+                                                            </div>
+                                                            <div class="form-group form-default">
+                                                                <input type="number" name="phone" class="form-control" required=""  maxlength="11">
+                                                                <span class="form-bar"></span>
+                                                                <label class="float-label">Mobile</label>
+                                                            </div>
+                                                            <div class="form-group form-default">
+                                                                <input type="text" name="address" class="form-control" required="">
+                                                                <span class="form-bar"></span>
+                                                                <label class="float-label">Address</label>
+                                                            </div>
+                                                            <div class="form-group form-default">
+                                                                <input type="text" name="equipement" class="form-control" required="">
+                                                                <span class="form-bar"></span>
+                                                                <label class="float-label">Equipement</label>
+                                                            </div>
+                                                            <div class="form-group form-default">
+                                                                <input type="date" name="installation" class="form-control" required="" >
+                                                                <span class="form-bar"></span>
+                                                                <label class="float-label">Installation</label>
+                                                            </div>
+                                                            <div class="form-group form-default">
+                                                                <input type="text" name="staff" class="form-control" required="">
+                                                                <span class="form-bar"></span>
+                                                                <label class="float-label">staff</label>
+                                                            </div>
+                                                            <button class="btn btn-primary waves-effect waves-light">Submit</button>
+                                                           
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="styleSelector">
+                
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
